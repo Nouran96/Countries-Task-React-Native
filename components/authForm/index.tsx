@@ -1,7 +1,7 @@
 import { Field, FieldProps, Formik, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { Button } from "react-native-paper";
 import InputField from "../controls/inputField";
 import { Colors } from "../../styles/Colors";
@@ -41,7 +41,10 @@ const AuthForm = ({ submitForm }: AuthFormProps) => {
   });
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -84,7 +87,7 @@ const AuthForm = ({ submitForm }: AuthFormProps) => {
           </View>
         )}
       </Formik>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -6,9 +6,13 @@ import * as React from "react";
 import LoginScreen from "../containers/LoginScreen";
 import RegisterScreen from "../containers/RegisterScreen";
 import { Colors } from "../styles/Colors";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/reducers";
+import Home from "../containers/Home";
 
 export type RootStackParamList = {
   Auth: undefined;
+  Home: undefined;
 };
 
 export type RootTabParamList = {
@@ -64,14 +68,22 @@ const Auth = () => {
 };
 
 const Routes: React.FC = () => {
+  const {
+    auth: { token },
+  } = useSelector((state: RootState) => state);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Auth"
-          component={Auth}
-          options={{ headerShown: false }}
-        />
+        {token ? (
+          <Stack.Screen name="Home" component={Home} />
+        ) : (
+          <Stack.Screen
+            name="Auth"
+            component={Auth}
+            options={{ headerShown: false }}
+          />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,15 +1,18 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { Appbar, Banner, Provider as PaperProvider } from "react-native-paper";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
 import Constants from "expo-constants";
 import Routes from "./routes";
+import { Provider } from "react-redux";
+import store from "./store";
 
 export default function App() {
   return (
-    <PaperProvider>
-      <Routes />
-    </PaperProvider>
+    <Provider store={store}>
+      <PaperProvider>
+        <Routes />
+      </PaperProvider>
+    </Provider>
   );
 }
 

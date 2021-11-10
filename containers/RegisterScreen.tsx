@@ -3,6 +3,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import AuthForm, { AuthFormValues } from "../components/authForm";
+import { register } from "../network/apiCalls";
 import { RootTabParamList } from "../routes";
 import { Shared } from "../styles/Shared";
 
@@ -17,17 +18,15 @@ const RegisterScreen = (props: RegisterScreenProps) => {
   const navigation = useNavigation<registerScreenProps>();
 
   const handleSubmit = (values: AuthFormValues) => {
-    console.log(values);
+    const { confirmPassword, ...data } = values;
+
+    register(data).then(() => {
+      navigation.navigate("Login");
+    });
   };
   return (
     <View style={styles.container}>
       <AuthForm submitForm={handleSubmit} />
-
-      {/* <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-        <Text style={Shared.redirectText}>
-          Already have an account? Login now
-        </Text>
-      </TouchableOpacity> */}
     </View>
   );
 };

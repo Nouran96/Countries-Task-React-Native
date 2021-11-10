@@ -1,28 +1,26 @@
-import { useNavigation, useRoute } from "@react-navigation/core";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+// import { useNavigation, useRoute } from "@react-navigation/core";
+// import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
 import AuthForm, { AuthFormValues } from "../components/authForm";
-import { RootTabParamList } from "../routes";
-
-type loginScreenProp = NativeStackNavigationProp<RootTabParamList, "Login">;
+import { login } from "../network/apiCalls";
+import { addToken } from "../store/Auth/actions";
 
 const LoginScreen = () => {
-  const navigation = useNavigation<loginScreenProp>();
+  const dispatch = useDispatch();
 
   const handleSubmit = (values: AuthFormValues) => {
-    console.log(values);
+    login(values).then((res) => {
+      if (res.data?.data?.token) {
+        dispatch(addToken(res.data.data.token));
+      }
+    });
   };
 
   return (
     <View style={styles.container}>
       <AuthForm submitForm={handleSubmit} />
-
-      {/* <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-        <Text style={Shared.redirectText}>
-          Don't have an account? Register now
-        </Text>
-      </TouchableOpacity> */}
     </View>
   );
 };
