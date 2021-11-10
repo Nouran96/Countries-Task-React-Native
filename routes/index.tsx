@@ -9,6 +9,9 @@ import { Colors } from "../styles/Colors";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/reducers";
 import Home from "../containers/Home";
+import { Button } from "react-native-paper";
+import store from "../store";
+import { addToken } from "../store/Auth/actions";
 
 export type RootStackParamList = {
   Auth: undefined;
@@ -27,6 +30,14 @@ const commonHeaderStyles = {
   headerStyle: {
     backgroundColor: "#ddd",
   },
+};
+
+const authHeaderOptions = {
+  headerRight: () => (
+    <Button onPress={() => store.dispatch(addToken(null))} color={Colors.main}>
+      Logout
+    </Button>
+  ),
 };
 
 const Auth = () => {
@@ -76,7 +87,11 @@ const Routes: React.FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {token ? (
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ ...commonHeaderStyles, ...authHeaderOptions }}
+          />
         ) : (
           <Stack.Screen
             name="Auth"

@@ -1,5 +1,6 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import store from "../store";
+import { hideLoader, showLoader, showSnackbar } from "../store/Shared/actions";
 
 export const requestHandler = (req: AxiosRequestConfig): AxiosRequestConfig => {
   const { token } = store.getState().auth;
@@ -8,15 +9,21 @@ export const requestHandler = (req: AxiosRequestConfig): AxiosRequestConfig => {
     req.headers["Authorization"] = `Bearer ${token}`;
   }
 
+  store.dispatch(showLoader());
+
   return req;
 };
 
 export const successHandler = (res: AxiosResponse) => {
-  // console.log(res);
+  store.dispatch(hideLoader());
+
   return res;
 };
 
 export const errorHandler = (error: AxiosError) => {
-  console.log(error);
+  store.dispatch(hideLoader());
+
+  store.dispatch(showSnackbar(error.response?.data.message));
+
   return Promise.reject({ ...error });
 };

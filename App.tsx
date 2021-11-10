@@ -5,11 +5,15 @@ import Constants from "expo-constants";
 import Routes from "./routes";
 import { Provider } from "react-redux";
 import store from "./store";
+import Loader from "./components/loader";
+import SnackbarComp from "./components/snackbar";
 
 export default function App() {
   return (
     <Provider store={store}>
       <PaperProvider>
+        <Loader />
+        <SnackbarComp />
         <Routes />
       </PaperProvider>
     </Provider>

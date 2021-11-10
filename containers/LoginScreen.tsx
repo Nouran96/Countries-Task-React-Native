@@ -11,11 +11,13 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values: AuthFormValues) => {
-    login(values).then((res) => {
-      if (res.data?.data?.token) {
-        dispatch(addToken(res.data.data.token));
-      }
-    });
+    login(values)
+      .then((res) => {
+        if (res.data?.data?.token) {
+          dispatch(addToken(res.data.data.token));
+        }
+      })
+      .catch((err) => console.log(err.response.data.message));
   };
 
   return (
