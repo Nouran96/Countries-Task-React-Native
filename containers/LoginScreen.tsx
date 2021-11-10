@@ -1,12 +1,11 @@
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation, useRoute } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import AuthForm, { AuthFormValues } from "../components/authForm";
-import { RootStackParamList } from "../routes";
-import { Shared } from "../styles/Shared";
+import { RootTabParamList } from "../routes";
 
-type loginScreenProp = NativeStackNavigationProp<RootStackParamList, "Login">;
+type loginScreenProp = NativeStackNavigationProp<RootTabParamList, "Login">;
 
 const LoginScreen = () => {
   const navigation = useNavigation<loginScreenProp>();
@@ -19,11 +18,11 @@ const LoginScreen = () => {
     <View style={styles.container}>
       <AuthForm submitForm={handleSubmit} />
 
-      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+      {/* <TouchableOpacity onPress={() => navigation.navigate("Register")}>
         <Text style={Shared.redirectText}>
           Don't have an account? Register now
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

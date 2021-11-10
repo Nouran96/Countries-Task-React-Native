@@ -5,6 +5,7 @@ import { View, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import InputField from "../controls/inputField";
 import { Colors } from "../../styles/Colors";
+import { useRoute } from "@react-navigation/core";
 
 interface AuthFormProps {
   submitForm(values: AuthFormValues): void;
@@ -13,19 +14,30 @@ interface AuthFormProps {
 export interface AuthFormValues {
   email: string;
   password: string;
+  confirmPassword?: string;
 }
 
 const AuthForm = ({ submitForm }: AuthFormProps) => {
+  const { name: routeName } = useRoute();
+
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
       .min(6, "Should be at least 6 characters")
       .required("Required"),
+    ...(routeName === "Register"
+      ? {
+          confirmPassword: Yup.string()
+            .oneOf([Yup.ref("password")], "Passwords mismatch")
+            .required("Required"),
+        }
+      : {}),
   });
 
   const [initialValues] = React.useState<AuthFormValues>({
     email: "",
     password: "",
+    ...(routeName === "Register" ? { confirmPassword: "" } : {}),
   });
 
   return (
@@ -48,6 +60,18 @@ const AuthForm = ({ submitForm }: AuthFormProps) => {
                 <InputField {...props} label="Password" type="password" />
               )}
             </Field>
+
+            {routeName === "Register" && (
+              <Field name="confirmPassword">
+                {(props: FieldProps) => (
+                  <InputField
+                    {...props}
+                    label="Confirm Password"
+                    type="password"
+                  />
+                )}
+              </Field>
+            )}
 
             <Button
               mode="contained"
