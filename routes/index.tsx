@@ -12,10 +12,13 @@ import Home from "../containers/Home";
 import { Button } from "react-native-paper";
 import store from "../store";
 import { addToken } from "../store/Auth/actions";
+import Details from "../containers/Details";
+import { Country } from "../utils/Shared";
 
 export type RootStackParamList = {
   Auth: undefined;
   Home: undefined;
+  Details: { country: Country };
 };
 
 export type RootTabParamList = {
@@ -87,11 +90,18 @@ const Routes: React.FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {token ? (
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ ...commonHeaderStyles, ...authHeaderOptions }}
-          />
+          <>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ ...commonHeaderStyles, ...authHeaderOptions }}
+            />
+            <Stack.Screen
+              name="Details"
+              component={Details}
+              options={{ ...commonHeaderStyles, ...authHeaderOptions }}
+            />
+          </>
         ) : (
           <Stack.Screen
             name="Auth"

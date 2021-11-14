@@ -1,5 +1,3 @@
-// import { useNavigation, useRoute } from "@react-navigation/core";
-// import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";

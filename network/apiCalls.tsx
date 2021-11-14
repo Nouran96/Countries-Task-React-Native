@@ -8,3 +8,7 @@ export const login = async (data: AuthFormValues) => {
 export const register = async (data: AuthFormValues) => {
   return await axiosInstance.post(`cognito-register`, data);
 };
+
+export const getAllCountries = async () => {
+  return await axiosInstance.get(`country`);
+};

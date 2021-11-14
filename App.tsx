@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import Constants from "expo-constants";
 import Routes from "./routes";
@@ -21,8 +21,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: Constants.statusBarHeight + 10,
-  },
+  container: {},
 });
