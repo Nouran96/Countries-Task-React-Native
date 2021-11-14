@@ -1,13 +1,16 @@
 import { useNavigation } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as React from "react";
-import { Text, View, StyleSheet, FlatList } from "react-native";
-import { Headline, Subheading } from "react-native-paper";
+import { View, StyleSheet, FlatList, RefreshControl } from "react-native";
+import { Headline, Subheading, FAB } from "react-native-paper";
 import { useSelector } from "react-redux";
+import FloatingButton from "../components/controls/floatingBtn";
 import CountryCard from "../components/country-card";
 import { getAllCountries } from "../network/apiCalls";
 import { RootStackParamList } from "../routes";
 import { RootState } from "../store/reducers";
+import { Colors } from "../styles/Colors";
+import { Shared } from "../styles/Shared";
 import { Country } from "../utils/Shared";
 
 interface HomeProps {}
@@ -19,6 +22,7 @@ type countriesScreenProps = NativeStackNavigationProp<
 
 const Home = (props: HomeProps) => {
   const [countries, setCountries] = React.useState<Array<Country>>([]);
+  const [refreshing, setRefreshing] = React.useState<boolean>(false);
   const navigation = useNavigation<countriesScreenProps>();
 
   const {
@@ -26,12 +30,17 @@ const Home = (props: HomeProps) => {
   } = useSelector((state: RootState) => state);
 
   React.useEffect(() => {
+    getCountries();
+  }, []);
+
+  const getCountries = () => {
     getAllCountries()
       .then((res) => {
         setCountries(res.data?.data || []);
+        setRefreshing(false);
       })
-      .catch((err) => console.error(err.response.data.message));
-  }, []);
+      .catch((err) => console.log(err.response.data.message));
+  };
 
   const renderItem = ({ item }: { item: Country }) => {
     return (
@@ -39,6 +48,9 @@ const Home = (props: HomeProps) => {
         country={item}
         onPress={() => {
           navigation.navigate("Details", { country: item });
+        }}
+        goToEdit={() => {
+          navigation.navigate("EditCountry", { country: item });
         }}
       />
     );
@@ -54,6 +66,20 @@ const Home = (props: HomeProps) => {
               data={countries}
               renderItem={renderItem}
               keyExtractor={(item: object, index: number) => index.toString()}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={() => {
+                    setRefreshing(true);
+                    getCountries();
+                  }}
+                />
+              }
+            />
+            <FloatingButton
+              onPress={() => navigation.navigate("AddCountry")}
+              color="#fff"
+              icon="plus"
             />
           </>
         ) : (
@@ -61,27 +87,14 @@ const Home = (props: HomeProps) => {
         ))}
     </View>
   );
-
-  // <View style={styles.container}>
-  //   {!isLoading &&
-  //     (countries.length > 0 ? (
-  //       <>
-  //         <Headline>Countries</Headline>
-  //         {countries.map((country, index) => (
-  //           <CountryCard key={index} country={country} />
-  //         ))}
-  //       </>
-  //     ) : (
-  //       <Subheading style={styles.centerText}>No countries found</Subheading>
-  //     ))}
-  // </View>
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    flex: 1,
+    ...Shared.mainContainer,
   },
   centerText: {
     textAlign: "center",

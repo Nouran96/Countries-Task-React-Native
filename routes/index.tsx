@@ -14,11 +14,15 @@ import store from "../store";
 import { addToken } from "../store/Auth/actions";
 import Details from "../containers/Details";
 import { Country } from "../utils/Shared";
+import AddCountry from "../containers/AddCountry";
+import EditCountry from "../containers/EditCountry";
 
 export type RootStackParamList = {
   Auth: undefined;
   Home: undefined;
   Details: { country: Country };
+  AddCountry: undefined;
+  EditCountry: { country: Country };
 };
 
 export type RootTabParamList = {
@@ -99,7 +103,29 @@ const Routes: React.FC = () => {
             <Stack.Screen
               name="Details"
               component={Details}
-              options={{ ...commonHeaderStyles, ...authHeaderOptions }}
+              options={({ route }) => ({
+                ...commonHeaderStyles,
+                ...authHeaderOptions,
+                title: route.params.country.name,
+              })}
+            />
+            <Stack.Screen
+              name="AddCountry"
+              component={AddCountry}
+              options={{
+                ...commonHeaderStyles,
+                ...authHeaderOptions,
+                title: "Add Country",
+              }}
+            />
+            <Stack.Screen
+              name="EditCountry"
+              component={EditCountry}
+              options={({ route }) => ({
+                ...commonHeaderStyles,
+                ...authHeaderOptions,
+                title: `Edit "${route.params.country.name}"`,
+              })}
             />
           </>
         ) : (

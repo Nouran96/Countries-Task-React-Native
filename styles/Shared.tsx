@@ -5,4 +5,7 @@ export const Shared = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
   },
+  mainContainer: {
+    padding: 10,
+  },
 });

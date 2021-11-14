@@ -10,9 +10,10 @@ import { Country } from "../../utils/Shared";
 interface CountryCardProps {
   country: Country | null;
   onPress?(): void;
+  goToEdit(): void;
 }
 
-const CountryCard = ({ country, onPress }: CountryCardProps) => {
+const CountryCard = ({ country, onPress, goToEdit }: CountryCardProps) => {
   return (
     <View style={styles.container}>
       {country && (
@@ -32,7 +33,7 @@ const CountryCard = ({ country, onPress }: CountryCardProps) => {
             </View>
           </Card.Content>
           <Card.Actions style={styles.actionsContainer}>
-            <Button mode="contained" color={Colors.black}>
+            <Button mode="contained" color={Colors.black} onPress={goToEdit}>
               Edit
             </Button>
           </Card.Actions>

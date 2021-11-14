@@ -1,12 +1,14 @@
 import { FieldProps } from "formik";
 import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, KeyboardTypeOptions } from "react-native";
 import { HelperText, TextInput } from "react-native-paper";
 
 interface InputFieldProps {
   label?: string;
   type?: string;
   placeholder?: string;
+  keyboardType?: KeyboardTypeOptions;
+  disabled?: boolean;
 }
 
 type OwnProps = FieldProps & InputFieldProps;
@@ -16,6 +18,8 @@ const InputField: React.FC<OwnProps> = ({
   type,
   placeholder,
   field,
+  keyboardType,
+  disabled,
   meta,
 }) => {
   return (
@@ -25,6 +29,8 @@ const InputField: React.FC<OwnProps> = ({
         autoCompleteType="off"
         label={label}
         placeholder={placeholder}
+        disabled={disabled}
+        keyboardType={keyboardType}
         value={field.value}
         mode="outlined"
         error={Boolean(meta.touched && meta.error)}

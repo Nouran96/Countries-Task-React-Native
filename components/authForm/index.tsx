@@ -1,11 +1,18 @@
 import { Field, FieldProps, Formik, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
 import * as React from "react";
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import { Button } from "react-native-paper";
 import InputField from "../controls/inputField";
 import { Colors } from "../../styles/Colors";
 import { useRoute } from "@react-navigation/core";
+import { Shared } from "../../styles/Shared";
 
 interface AuthFormProps {
   submitForm(values: AuthFormValues): void;
@@ -41,10 +48,7 @@ const AuthForm = ({ submitForm }: AuthFormProps) => {
   });
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
+    <ScrollView contentContainerStyle={styles.container}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -52,7 +56,7 @@ const AuthForm = ({ submitForm }: AuthFormProps) => {
           submitForm(values);
         }}
       >
-        {({ handleSubmit }) => (
+        {({ handleSubmit, isValid, dirty }) => (
           <View>
             <Field name="email">
               {(props: FieldProps) => <InputField {...props} label="Email" />}
@@ -81,13 +85,14 @@ const AuthForm = ({ submitForm }: AuthFormProps) => {
               dark={true}
               color={Colors.main}
               onPress={handleSubmit}
+              disabled={!dirty || !isValid}
             >
               Submit
             </Button>
           </View>
         )}
       </Formik>
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
@@ -95,6 +100,8 @@ export default AuthForm;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    ...Shared.mainContainer,
+    flexGrow: 1,
+    justifyContent: "center",
   },
 });
