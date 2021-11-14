@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
+import { CommonActions } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
@@ -20,7 +21,18 @@ const AddCountry = (props: AddCountryProps) => {
 
   const addNewCountry = (values: Country) => {
     addCountry(values)
-      .then((res) => navigation.navigate("Details", { country: res.data.data }))
+      .then((res) =>
+        navigation.dispatch(
+          // Remove add country form from stack and add home to back btn
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              { name: "Home" },
+              { name: "Details", params: { country: res.data.data } },
+            ],
+          })
+        )
+      )
       .catch((err) => console.log(err.response.data.message));
   };
 

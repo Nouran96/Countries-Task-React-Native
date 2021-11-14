@@ -66,8 +66,6 @@ const CountryForm = ({ submitForm, country }: CountryFormProps) => {
             population: +values.population,
             numberOfStates: +values.numberOfStates,
           });
-
-          actions.resetForm();
         }}
         enableReinitialize
       >
