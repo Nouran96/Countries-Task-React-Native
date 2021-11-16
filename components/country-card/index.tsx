@@ -1,5 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Card, Title, Paragraph, Button, Subheading } from "react-native-paper";
@@ -17,8 +18,20 @@ const CountryCard = ({ country, onPress, goToEdit }: CountryCardProps) => {
   return (
     <View style={styles.container}>
       {country && (
-        <Card onPress={onPress ? onPress : () => {}}>
-          <Card.Title title={country.name} />
+        <Card style={styles.card} onPress={onPress ? onPress : () => {}}>
+          <Card.Title
+            title={country.name}
+            right={(props) => (
+              <Ionicons
+                {...props}
+                name="create-outline"
+                color={Colors.black}
+                size={30}
+                onPress={goToEdit}
+              />
+            )}
+          />
+
           <Card.Content>
             <View style={styles.infoRow}>
               <Subheading style={styles.rowTitle}>Population: </Subheading>
@@ -32,11 +45,6 @@ const CountryCard = ({ country, onPress, goToEdit }: CountryCardProps) => {
               <Paragraph>{country.numberOfStates}</Paragraph>
             </View>
           </Card.Content>
-          <Card.Actions style={styles.actionsContainer}>
-            <Button mode="contained" color={Colors.black} onPress={goToEdit}>
-              Edit
-            </Button>
-          </Card.Actions>
         </Card>
       )}
     </View>
@@ -49,9 +57,6 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 10,
   },
-  actionsContainer: {
-    justifyContent: "flex-end",
-  },
   infoRow: {
     flexDirection: "row",
     alignItems: "baseline",
@@ -59,5 +64,8 @@ const styles = StyleSheet.create({
   rowTitle: {
     fontWeight: "bold",
     color: Colors.main,
+  },
+  card: {
+    elevation: 4,
   },
 });

@@ -1,7 +1,14 @@
 import { useNavigation } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as React from "react";
-import { View, StyleSheet, FlatList, RefreshControl, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  RefreshControl,
+  Text,
+  ImageBackground,
+} from "react-native";
 import { Headline, Subheading, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
 import FloatingButton from "../components/controls/floatingBtn";
@@ -12,6 +19,8 @@ import { RootState } from "../store/reducers";
 import { Colors } from "../styles/Colors";
 import { Shared } from "../styles/Shared";
 import { Country } from "../utils/Shared";
+import image from "../assets/world_map.jpg";
+import useDebounce from "../components/hooks/useDebounce";
 
 interface HomeProps {}
 
@@ -27,6 +36,7 @@ const Home = (props: HomeProps) => {
   >([]);
   const [refreshing, setRefreshing] = React.useState<boolean>(false);
   const [searchValue, setSearchValue] = React.useState<string>("");
+  const debouncedSearchTerm: string = useDebounce<string>(searchValue, 500);
   const navigation = useNavigation<countriesScreenProps>();
 
   const {
@@ -39,17 +49,19 @@ const Home = (props: HomeProps) => {
 
   React.useEffect(() => {
     if (countries.length > 0) {
-      if (searchValue.trim()) {
+      if (debouncedSearchTerm.trim()) {
         filterCountries();
       } else {
         setFilteredCountries(countries);
       }
     }
-  }, [searchValue, countries]);
+  }, [debouncedSearchTerm, countries]);
 
   const filterCountries = () => {
     const filteredArr = countries.filter((country) =>
-      country.name.toLowerCase().includes(searchValue.trim().toLowerCase())
+      country.name
+        .toLowerCase()
+        .includes(debouncedSearchTerm.trim().toLowerCase())
     );
 
     setFilteredCountries(filteredArr);
@@ -78,29 +90,31 @@ const Home = (props: HomeProps) => {
     );
   };
 
-  return (
-    <View style={styles.container}>
-      {!isLoading && (
-        <>
-          <Headline>Countries</Headline>
+  return !isLoading ? (
+    <>
+      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+        <View style={styles.container}>
           <TextInput
             style={styles.searchInput}
             autoCompleteType="off"
-            label="Filter"
+            placeholder="Search..."
             value={searchValue}
             mode="outlined"
             activeOutlineColor="#222"
             onChangeText={setSearchValue}
           />
+          <Subheading style={styles.subheading}>
+            {filteredCountries.length} Countries found
+          </Subheading>
           <FlatList
             data={filteredCountries}
             renderItem={renderItem}
             keyExtractor={(item: object, index: number) => index.toString()}
-            ListEmptyComponent={
-              <Subheading style={styles.centerText}>
-                No countries found
-              </Subheading>
-            }
+            // ListEmptyComponent={
+            //   <Subheading style={styles.centerText}>
+            //     No countries found
+            //   </Subheading>
+            // }
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
@@ -117,9 +131,11 @@ const Home = (props: HomeProps) => {
             color="#fff"
             icon="plus"
           />
-        </>
-      )}
-    </View>
+        </View>
+      </ImageBackground>
+    </>
+  ) : (
+    <></>
   );
 };
 
@@ -135,7 +151,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 20,
   },
-  searchInput: {
+  subheading: {
     marginVertical: 10,
+    fontSize: 20,
+  },
+  searchInput: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  image: {
+    flex: 1,
+    height: 100,
+    justifyContent: "center",
   },
 });
