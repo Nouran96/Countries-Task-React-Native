@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import * as React from "react";
 import {
   View,
@@ -8,8 +9,16 @@ import {
   RefreshControl,
   Text,
   ImageBackground,
+  Touchable,
+  TouchableOpacity,
 } from "react-native";
-import { Headline, Subheading, TextInput } from "react-native-paper";
+import {
+  Headline,
+  Subheading,
+  TextInput,
+  Card,
+  Button,
+} from "react-native-paper";
 import { useSelector } from "react-redux";
 import FloatingButton from "../components/controls/floatingBtn";
 import CountryCard from "../components/country-card";
@@ -20,7 +29,9 @@ import { Colors } from "../styles/Colors";
 import { Shared } from "../styles/Shared";
 import { Country } from "../utils/Shared";
 import image from "../assets/world_map.jpg";
+import countryImage from "../assets/country_bg.jpg";
 import useDebounce from "../components/hooks/useDebounce";
+import SummarizedCountryCard from "../components/summarizedCountryCard";
 
 interface HomeProps {}
 
@@ -78,7 +89,7 @@ const Home = (props: HomeProps) => {
 
   const renderItem = ({ item }: { item: Country }) => {
     return (
-      <CountryCard
+      <SummarizedCountryCard
         country={item}
         onPress={() => {
           navigation.navigate("Details", { country: item });
@@ -98,6 +109,14 @@ const Home = (props: HomeProps) => {
             style={styles.searchInput}
             autoCompleteType="off"
             placeholder="Search..."
+            right={
+              <TextInput.Icon
+                color="#ddd"
+                name={() => (
+                  <Ionicons name="search-outline" color="#999" size={25} />
+                )}
+              />
+            }
             value={searchValue}
             mode="outlined"
             activeOutlineColor="#222"
@@ -109,12 +128,8 @@ const Home = (props: HomeProps) => {
           <FlatList
             data={filteredCountries}
             renderItem={renderItem}
+            numColumns={2}
             keyExtractor={(item: object, index: number) => index.toString()}
-            // ListEmptyComponent={
-            //   <Subheading style={styles.centerText}>
-            //     No countries found
-            //   </Subheading>
-            // }
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}

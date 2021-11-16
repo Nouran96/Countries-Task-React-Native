@@ -2,7 +2,7 @@ import { useNavigation, useRoute } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ImageBackground } from "react-native";
 import { Card, Title, Paragraph, Button, Subheading } from "react-native-paper";
 import { RootStackParamList } from "../../routes";
 import { Colors } from "../../styles/Colors";
@@ -27,7 +27,6 @@ const CountryCard = ({ country, onPress, goToEdit }: CountryCardProps) => {
                 name="create-outline"
                 color={Colors.black}
                 size={30}
-                onPress={goToEdit}
               />
             )}
           />
@@ -55,6 +54,8 @@ export default CountryCard;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    marginEnd: 10,
     marginBottom: 10,
   },
   infoRow: {
