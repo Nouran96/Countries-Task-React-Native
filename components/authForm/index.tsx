@@ -57,7 +57,7 @@ const AuthForm = ({ submitForm }: AuthFormProps) => {
         }}
       >
         {({ handleSubmit, isValid, dirty }) => (
-          <View>
+          <View style={Shared.formContainer}>
             <Field name="email">
               {(props: FieldProps) => <InputField {...props} label="Email" />}
             </Field>

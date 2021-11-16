@@ -70,7 +70,7 @@ const CountryForm = ({ submitForm, country }: CountryFormProps) => {
         enableReinitialize
       >
         {({ handleSubmit, isValid, dirty }) => (
-          <View>
+          <View style={Shared.formContainer}>
             <Field name="name">
               {(props: FieldProps) => (
                 <InputField

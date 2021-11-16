@@ -12,7 +12,7 @@ import {
 import { Subheading, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
 import FloatingButton from "../components/controls/floatingBtn";
-import CountryCard from "../components/country-card";
+import CountryCard from "../components/countryCard";
 import { getAllCountries } from "../network/apiCalls";
 import { RootStackParamList } from "../routes";
 import { RootState } from "../store/reducers";
