@@ -16,57 +16,55 @@ interface CountryCardProps {
 
 const CountryCard = ({ country, onPress, goToEdit }: CountryCardProps) => {
   return (
-    <View style={styles.container}>
+    <>
       {country && (
-        <Card style={styles.card} onPress={onPress ? onPress : () => {}}>
-          <Card.Title
-            title={country.name}
-            right={(props) => (
-              <Ionicons
-                {...props}
-                name="create-outline"
-                color={Colors.black}
-                size={30}
-              />
-            )}
-          />
+        <>
+          <View style={styles.infoRow}>
+            <Subheading style={styles.rowTitle}>Population</Subheading>
+            <Paragraph style={styles.rowValue}>{country.population}</Paragraph>
+          </View>
 
-          <Card.Content>
-            <View style={styles.infoRow}>
-              <Subheading style={styles.rowTitle}>Population: </Subheading>
-              <Paragraph>{country.population}</Paragraph>
-            </View>
-
-            <View style={styles.infoRow}>
-              <Subheading style={styles.rowTitle}>
-                Number of states:{" "}
-              </Subheading>
-              <Paragraph>{country.numberOfStates}</Paragraph>
-            </View>
-          </Card.Content>
-        </Card>
+          <View style={styles.infoRow}>
+            <Subheading style={styles.rowTitle}>Number of states</Subheading>
+            <Paragraph style={styles.rowValue}>
+              {country.numberOfStates}
+            </Paragraph>
+          </View>
+          <View style={{ flex: 1, alignItems: "center" }}>
+            <Button
+              icon={() => (
+                <Ionicons name="create-outline" color="#fff" size={30} />
+              )}
+              color="#fff"
+              style={styles.editBtn}
+              onPress={goToEdit}
+            >
+              <Text>Edit</Text>
+            </Button>
+          </View>
+        </>
       )}
-    </View>
+    </>
   );
 };
 
 export default CountryCard;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginEnd: 10,
-    marginBottom: 10,
-  },
   infoRow: {
-    flexDirection: "row",
-    alignItems: "baseline",
+    marginBottom: 20,
   },
   rowTitle: {
     fontWeight: "bold",
     color: Colors.main,
+    fontSize: 25,
   },
-  card: {
-    elevation: 4,
+  rowValue: {
+    fontSize: 20,
+    marginTop: 10,
+  },
+  editBtn: {
+    backgroundColor: Colors.black,
+    paddingVertical: 5,
   },
 });

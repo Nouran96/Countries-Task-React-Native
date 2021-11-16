@@ -11,6 +11,7 @@ import { Card } from "react-native-paper";
 import { Colors } from "../../styles/Colors";
 import { Country } from "../../utils/Shared";
 import countryImage from "../../assets/country_bg.jpg";
+import BackgroundImageWithText from "../backgroundImageWithText";
 
 interface SummarizedCountryCardProps {
   country: Country | null;
@@ -27,14 +28,7 @@ const SummarizedCountryCard = ({
     <View style={styles.container}>
       {country && (
         <Card onPress={onPress}>
-          <ImageBackground
-            source={countryImage}
-            resizeMode="cover"
-            style={styles.countryImage}
-          >
-            <View style={styles.overlay}></View>
-            <Text style={styles.countryName}>{country.name}</Text>
-          </ImageBackground>
+          <BackgroundImageWithText source={countryImage} text={country.name} />
           <Card.Actions>
             <TouchableOpacity style={styles.editContainer} onPress={goToEdit}>
               <Text style={styles.editText}>Edit</Text>

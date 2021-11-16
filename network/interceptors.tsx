@@ -28,7 +28,11 @@ export const errorHandler = (error: AxiosError) => {
     store.dispatch(addToken(null));
   }
 
-  store.dispatch(showSnackbar(error.response?.data.message));
+  store.dispatch(
+    showSnackbar(
+      error.response?.data.message || "Check your connection and Try again"
+    )
+  );
 
   return Promise.reject({ ...error });
 };

@@ -7,29 +7,18 @@ import {
   StyleSheet,
   FlatList,
   RefreshControl,
-  Text,
   ImageBackground,
-  Touchable,
-  TouchableOpacity,
 } from "react-native";
-import {
-  Headline,
-  Subheading,
-  TextInput,
-  Card,
-  Button,
-} from "react-native-paper";
+import { Subheading, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
 import FloatingButton from "../components/controls/floatingBtn";
 import CountryCard from "../components/country-card";
 import { getAllCountries } from "../network/apiCalls";
 import { RootStackParamList } from "../routes";
 import { RootState } from "../store/reducers";
-import { Colors } from "../styles/Colors";
 import { Shared } from "../styles/Shared";
 import { Country } from "../utils/Shared";
 import image from "../assets/world_map.jpg";
-import countryImage from "../assets/country_bg.jpg";
 import useDebounce from "../components/hooks/useDebounce";
 import SummarizedCountryCard from "../components/summarizedCountryCard";
 

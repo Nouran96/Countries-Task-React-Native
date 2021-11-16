@@ -4,10 +4,10 @@
     "slug": "countriesTaskReactNativeExpo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/maps.png",
+    "icon": "./assets/final_1.png",
     "splash": {
-      "image": "./assets/maps.png",
-      "resizeMode": "contain",
+      "image": "./assets/final_1.png",
+      // "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/maps.png",
+        "foregroundImage": "./assets/final_1.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.example.countriesApp",
