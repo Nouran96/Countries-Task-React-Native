@@ -38,7 +38,7 @@ const AddCountry = (props: AddCountryProps) => {
 
   return (
     <View style={styles.container}>
-      <CountryForm submitForm={addNewCountry} />
+      <CountryForm submitForm={addNewCountry} title="New Country" />
     </View>
   );
 };

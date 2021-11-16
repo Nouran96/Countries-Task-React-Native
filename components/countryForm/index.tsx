@@ -8,7 +8,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, Headline } from "react-native-paper";
 import InputField from "../controls/inputField";
 import { Colors } from "../../styles/Colors";
 import { useRoute } from "@react-navigation/core";
@@ -18,6 +18,7 @@ import { Shared } from "../../styles/Shared";
 interface CountryFormProps {
   submitForm(values: Country): void;
   country?: Country;
+  title?: string;
 }
 
 interface CountryFormValues {
@@ -26,7 +27,7 @@ interface CountryFormValues {
   numberOfStates: string;
 }
 
-const CountryForm = ({ submitForm, country }: CountryFormProps) => {
+const CountryForm = ({ submitForm, country, title }: CountryFormProps) => {
   const { name: routeName } = useRoute();
 
   const validationSchema = Yup.object({
@@ -71,6 +72,8 @@ const CountryForm = ({ submitForm, country }: CountryFormProps) => {
       >
         {({ handleSubmit, isValid, dirty }) => (
           <View style={Shared.formContainer}>
+            {title && <Headline style={Shared.formTitle}>{title}</Headline>}
+
             <Field name="name">
               {(props: FieldProps) => (
                 <InputField

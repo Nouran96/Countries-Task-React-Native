@@ -4,10 +4,9 @@
     "slug": "countriesTaskReactNativeExpo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/final_1.png",
+    "icon": "./assets/pin_editted_2.png",
     "splash": {
       "image": "./assets/final_1.png",
-      // "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { Headline } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import AuthForm, { AuthFormValues } from "../components/authForm";
 import { login } from "../network/apiCalls";
@@ -20,7 +21,7 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <AuthForm submitForm={handleSubmit} />
+      <AuthForm submitForm={handleSubmit} greetingText="Welcome again" />
     </View>
   );
 };

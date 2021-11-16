@@ -43,7 +43,11 @@ const EditCountry = (props: EditCountryProps) => {
 
   return (
     <View style={styles.container}>
-      <CountryForm submitForm={editExistingCountry} country={country} />
+      <CountryForm
+        submitForm={editExistingCountry}
+        country={country}
+        title={`Edit "${country.name}"`}
+      />
     </View>
   );
 };

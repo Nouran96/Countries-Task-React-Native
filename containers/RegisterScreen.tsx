@@ -26,7 +26,7 @@ const RegisterScreen = (props: RegisterScreenProps) => {
   };
   return (
     <View style={styles.container}>
-      <AuthForm submitForm={handleSubmit} />
+      <AuthForm submitForm={handleSubmit} greetingText="First time?" />
     </View>
   );
 };

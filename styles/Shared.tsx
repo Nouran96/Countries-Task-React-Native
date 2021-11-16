@@ -10,13 +10,16 @@ export const Shared = StyleSheet.create({
     padding: 10,
   },
   formContainer: {
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: Colors.black,
     borderRadius: 7,
-    elevation: 3,
-    backgroundColor: "#eee",
-    paddingVertical: 50,
+    elevation: 12,
+    backgroundColor: "#e5e5e5",
+    paddingVertical: 30,
     paddingHorizontal: 20,
+  },
+  formTitle: {
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 10,
+    color: Colors.main,
   },
 });

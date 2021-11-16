@@ -7,15 +7,18 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, Headline } from "react-native-paper";
 import InputField from "../controls/inputField";
 import { Colors } from "../../styles/Colors";
 import { useRoute } from "@react-navigation/core";
 import { Shared } from "../../styles/Shared";
+import Logo from "../../assets/logo.png";
 
 interface AuthFormProps {
   submitForm(values: AuthFormValues): void;
+  greetingText?: string;
 }
 
 export interface AuthFormValues {
@@ -24,7 +27,7 @@ export interface AuthFormValues {
   confirmPassword?: string;
 }
 
-const AuthForm = ({ submitForm }: AuthFormProps) => {
+const AuthForm = ({ submitForm, greetingText }: AuthFormProps) => {
   const { name: routeName } = useRoute();
 
   const validationSchema = Yup.object({
@@ -58,6 +61,13 @@ const AuthForm = ({ submitForm }: AuthFormProps) => {
       >
         {({ handleSubmit, isValid, dirty }) => (
           <View style={Shared.formContainer}>
+            <Image
+              source={Logo}
+              style={{ width: 70, height: 70, alignSelf: "center" }}
+              resizeMode="contain"
+            />
+            <Headline style={Shared.formTitle}>{greetingText}</Headline>
+
             <Field name="email">
               {(props: FieldProps) => <InputField {...props} label="Email" />}
             </Field>
