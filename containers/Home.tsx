@@ -109,6 +109,7 @@ const Home = (props: HomeProps) => {
             value={searchValue}
             mode="outlined"
             activeOutlineColor="#222"
+            theme={{ roundness: 25 }}
             onChangeText={setSearchValue}
           />
           <Subheading style={styles.subheading}>

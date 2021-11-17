@@ -71,7 +71,7 @@ const CountryForm = ({ submitForm, country, title }: CountryFormProps) => {
         enableReinitialize
       >
         {({ handleSubmit, isValid, dirty }) => (
-          <View style={Shared.formContainer}>
+          <View>
             {title && <Headline style={Shared.formTitle}>{title}</Headline>}
 
             <Field name="name">
@@ -112,6 +112,8 @@ const CountryForm = ({ submitForm, country, title }: CountryFormProps) => {
               disabled={
                 routeName === "EditCountry" ? !isValid : !dirty || !isValid
               }
+              style={Shared.button}
+              labelStyle={Shared.buttonText}
             >
               Submit
             </Button>

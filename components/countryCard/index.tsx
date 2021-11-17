@@ -7,6 +7,7 @@ import { Card, Title, Paragraph, Button, Subheading } from "react-native-paper";
 import { RootStackParamList } from "../../routes";
 import { Colors } from "../../styles/Colors";
 import { Country } from "../../utils/Shared";
+import { Shared } from "../../styles/Shared";
 
 interface CountryCardProps {
   country: Country | null;
@@ -37,6 +38,7 @@ const CountryCard = ({ country, onPress, goToEdit }: CountryCardProps) => {
               )}
               color="#fff"
               style={styles.editBtn}
+              labelStyle={Shared.buttonText}
               onPress={goToEdit}
             >
               <Text>Edit</Text>
@@ -64,6 +66,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   editBtn: {
+    ...Shared.button,
     backgroundColor: Colors.black,
     paddingVertical: 5,
   },
