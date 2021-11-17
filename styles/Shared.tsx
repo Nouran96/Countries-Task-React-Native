@@ -22,4 +22,13 @@ export const Shared = StyleSheet.create({
     marginBottom: 10,
     color: Colors.main,
   },
+  button: {
+    padding: 10,
+    borderRadius: 25,
+  },
+  buttonText: {
+    fontSize: 17,
+    textTransform: "none",
+    fontWeight: "bold",
+  },
 });

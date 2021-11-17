@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "countriesTaskReactNativeExpo",
-    "slug": "countriesTaskReactNativeExpo",
+    "name": "Countries App",
+    "slug": "CountriesApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/pin_editted_2.png",

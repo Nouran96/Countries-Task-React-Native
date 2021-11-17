@@ -8,13 +8,14 @@ import {
   Platform,
   ScrollView,
   Image,
+  Text,
 } from "react-native";
 import { Button, Headline } from "react-native-paper";
 import InputField from "../controls/inputField";
 import { Colors } from "../../styles/Colors";
 import { useRoute } from "@react-navigation/core";
 import { Shared } from "../../styles/Shared";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo_white_1.png";
 
 interface AuthFormProps {
   submitForm(values: AuthFormValues): void;
@@ -51,58 +52,66 @@ const AuthForm = ({ submitForm, greetingText }: AuthFormProps) => {
   });
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values: AuthFormValues) => {
-          submitForm(values);
-        }}
-      >
-        {({ handleSubmit, isValid, dirty }) => (
-          <View style={Shared.formContainer}>
-            <Image
-              source={Logo}
-              style={{ width: 70, height: 70, alignSelf: "center" }}
-              resizeMode="contain"
-            />
-            <Headline style={Shared.formTitle}>{greetingText}</Headline>
+    <>
+      <View style={styles.semiCircle}>
+        <Image
+          source={Logo}
+          style={{ width: 70, height: 70, alignSelf: "center" }}
+          resizeMode="contain"
+        />
+        <Headline style={styles.circleTitle}>Countries App</Headline>
+      </View>
+      <View style={styles.pageTitle}>
+        <Headline style={Shared.formTitle}>{greetingText}</Headline>
+      </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={(values: AuthFormValues) => {
+            submitForm(values);
+          }}
+        >
+          {({ handleSubmit, isValid, dirty }) => (
+            <View>
+              <Field name="email">
+                {(props: FieldProps) => <InputField {...props} label="Email" />}
+              </Field>
 
-            <Field name="email">
-              {(props: FieldProps) => <InputField {...props} label="Email" />}
-            </Field>
-
-            <Field name="password">
-              {(props: FieldProps) => (
-                <InputField {...props} label="Password" type="password" />
-              )}
-            </Field>
-
-            {routeName === "Register" && (
-              <Field name="confirmPassword">
+              <Field name="password">
                 {(props: FieldProps) => (
-                  <InputField
-                    {...props}
-                    label="Confirm Password"
-                    type="password"
-                  />
+                  <InputField {...props} label="Password" type="password" />
                 )}
               </Field>
-            )}
 
-            <Button
-              mode="contained"
-              dark={true}
-              color={Colors.main}
-              onPress={handleSubmit}
-              disabled={!dirty || !isValid}
-            >
-              Submit
-            </Button>
-          </View>
-        )}
-      </Formik>
-    </ScrollView>
+              {routeName === "Register" && (
+                <Field name="confirmPassword">
+                  {(props: FieldProps) => (
+                    <InputField
+                      {...props}
+                      label="Confirm Password"
+                      type="password"
+                    />
+                  )}
+                </Field>
+              )}
+
+              <Button
+                mode="contained"
+                dark={true}
+                color={Colors.main}
+                onPress={handleSubmit}
+                disabled={!dirty || !isValid}
+                style={Shared.button}
+                labelStyle={Shared.buttonText}
+              >
+                Submit
+              </Button>
+            </View>
+          )}
+        </Formik>
+      </ScrollView>
+    </>
   );
 };
 
@@ -111,7 +120,26 @@ export default AuthForm;
 const styles = StyleSheet.create({
   container: {
     ...Shared.mainContainer,
-    flexGrow: 1,
+    // flexGrow: 1,
     justifyContent: "center",
+  },
+  semiCircle: {
+    backgroundColor: Colors.main,
+    height: 200,
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: 200,
+    borderBottomRightRadius: 200,
+    marginBottom: 10,
+  },
+  circleTitle: {
+    fontWeight: "bold",
+    color: "whitesmoke",
+    fontSize: 30,
+  },
+  pageTitle: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

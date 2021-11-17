@@ -37,6 +37,7 @@ const InputField: React.FC<OwnProps> = ({
         activeOutlineColor="#222"
         onBlur={field.onBlur(field.name)}
         onChangeText={field.onChange(field.name)}
+        theme={{ roundness: 25 }}
       />
 
       <HelperText type="error" visible={Boolean(meta.touched && meta.error)}>

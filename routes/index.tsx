@@ -35,13 +35,16 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const commonHeaderStyles = {
   headerStyle: {
-    backgroundColor: "#ddd",
+    backgroundColor: Colors.main,
+  },
+  headerTitleStyle: {
+    color: "#fff",
   },
 };
 
 const authHeaderOptions = {
   headerRight: () => (
-    <Button onPress={() => store.dispatch(addToken(null))} color={Colors.main}>
+    <Button onPress={() => store.dispatch(addToken(null))} color="#fff">
       Logout
     </Button>
   ),
@@ -51,6 +54,7 @@ const Auth = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
